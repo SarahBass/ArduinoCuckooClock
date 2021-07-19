@@ -1,5 +1,5 @@
 # ArduinoCuckooClock
-A programming Project using Arduino IDE , Arduino Uno, and Arduino Mega
+A programming project using Arduino IDE , Arduino Uno, and Arduino Mega
 
 Test Model built inside a handmade wooden clock, and final project built into a broken cuckoo clock antique that needs repair. 
 
