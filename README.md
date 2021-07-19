@@ -17,11 +17,8 @@ The Cuckoo Test Clock:
 The Final Clock Model:
 ----------------------------------------------------------------------------------------------------------
  - A new motor for a wheel of spinning dancers
- - 
  - A new clock, pendulum motor, and cuckoo bird device playing a random song 
- - 
  - A Transceiver to send bluetooth data to Andriod Phone for random Cuckoo Songs played
- - 
  - A string of LED lights that interact with song if drilling holes does not jeapordize the clock framework (As the old wood is brittle). 
 
 
@@ -38,15 +35,20 @@ User can keep the storage of dates and times of the songs played on the cuckoo c
 10 REMOTE MODES:
 ----------------------------------------------------------------------------------------------------------
 
-________________________________________________________________________________________________________________________________________________
-Mode 1: Birthday Mode 
-Instead of a random song played, the cuckoo clock plays the birthday song for 24 hours straight upon the hour, led lights light up, LED matrix shows cake and LCD screen flashes "Happy Birthday"
+Mode 1: | Birthday Mode 
+------------ | -------------
 
-Mode 2: Holiday Mode:
-The clock plays 12 holiday songs every 12 hours, and a tiny advent calendar LED matrix image, led christmas lights light up
+The cuckoo clock plays the birthday song for 24 hours straight upon the hour, led lights light up, LED matrix shows cake and LCD screen flashes "Happy Birthday"
 
-Mode 3: Hannukah Mode:
-The clock plays 6 hannukah songs at exactly 6PM to 12PM and the 9 led lights display from 6PM to 12PM, updating upon 6PM for 8 days. 
+Mode 2: | Holiday Mode
+------------ | -------------
+
+The clock plays 12 holiday songs every 12 hours, and a tiny advent calendar LED matrix image, led Christmas lights light up
+
+Mode 3: | Hannukah Mode
+------------ | -------------
+
+The clock plays Normal Mode from 12AM to 5PM, At 6PM it switches to 5 Hannukah songs from 6PM to 11PM and the 9 led lights display from 6PM to 12AM, updating upon 6PM for 8 days. 
 LED Lights:
 
 > Day 1: ----o---o
@@ -65,25 +67,39 @@ LED Lights:
 > 
 > Day 8: ooooooooo
 
-Mode 4: Halloween Mode
+Mode 4: | Halloween Mode
+------------ | -------------
+
 The clock plays 12 holiday songs every 12 hours, and a tiny LED matrix image shows spooky animations, led halloween lights light up
 
-Mode 5: Saint Patricks Day Mode: 
+Mode 5: | Saint Patricks Day Mode
+------------ | -------------
+
 The clock plays 12 Irish songs every 12 hours, and a tiny LED matrix image shows pot of gold animations, irish lights light up
 
-Mode 6: USA Mode
+Mode 6: | USA Mode
+------------ | -------------
+
 The clock plays 12 USA songs every 12 hours, and a tiny LED matrix image shows USA animations, USA FLAG lights light up
 
-Mode 7: German Octoberfest Mode:
+Mode 7: | German Octoberfest Mode
+------------ | -------------
+
 The clock plays 12 German songs every 12 hours, and a tiny LED matrix image shows food animations, lights light up
 
-Mode 8: Valentines Day Mode
+Mode 8: | Valentines Day Mode
+------------ | -------------
+
 The clock plays 12 love songs every 12 hours, and a tiny LED matrix image shows heart animations, lights light up
 
-Mode 9: Cinco De Mayo Mode:
+Mode 9: | Cinco De Mayo Mode
+------------ | -------------
+
 The clock plays 12 Cinco De Mayo songs every 12 hours, and a tiny LED matrix image shows food animations, lights light up
 
-Mode O: Normal Random Mode Reset
+Mode O: | Normal Mode 
+------------ | -------------
+Clock runs program every hour and plays new song and transmits it through Bluetooth Device to phone. No LED or LED Matrix.
 
 *Future Revisions:* 
 
