@@ -99,7 +99,7 @@ The clock plays 12 Cinco De Mayo songs every 12 hours, and a tiny LED matrix ima
 
 Mode O: | Normal Mode 
 ------------ | -------------
-Clock runs program every hour and plays new song and transmits it through Bluetooth Device to phone. No LED or LED Matrix.
+Clock runs program every hour and plays new song and transmits it through Bluetooth Device to phone. No LED or LED Matrix. | energy efficient
 
 *Future Revisions:* 
 
