@@ -1,0 +1,53 @@
+/*
+First Project Arduino Set Up
+Hello World Blinker 
+
+.... . .-.. .-.. --- 
+
+This program tells the LED to say Hello!
+*/
+
+void setup() {
+pinMode (13, OUTPUT);
+
+}
+
+
+void loop() {
+delay(4000);
+dotFunction();
+dotFunction();
+dotFunction();
+dotFunction();
+delay(1000);
+dotFunction();
+delay(1000);
+dotFunction();
+dashFunction();
+dotFunction();
+dotFunction();
+delay(1000);
+dotFunction();
+dashFunction();
+dotFunction();
+dotFunction();
+delay(1200);
+dashFunction();
+dashFunction();
+dashFunction();
+delay(8000);
+}
+
+void dotFunction(){
+  digitalWrite(13, HIGH);
+  delay(200);
+  digitalWrite(13,LOW);
+  delay(200);
+}
+
+void dashFunction(){
+  digitalWrite(13, HIGH);
+  delay(900);
+  digitalWrite(13,LOW);
+  delay(200);
+}
