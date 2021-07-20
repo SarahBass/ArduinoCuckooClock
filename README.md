@@ -38,7 +38,7 @@ User can keep the storage of dates and times of the songs played on the cuckoo c
 Mode 1: | Birthday Mode 
 ------------ | -------------
 
-The cuckoo clock plays the birthday song for 24 hours straight upon the hour, led lights light up, LED matrix shows cake and LCD screen flashes "Happy Birthday"
+The cuckoo clock plays the birthday song 12 times normally and 12 times randomized for 24 hours straight upon the hour, led lights light up, LED matrix shows cake and LCD screen flashes "Happy Birthday"
 
 Mode 2: | Holiday Mode
 ------------ | -------------
