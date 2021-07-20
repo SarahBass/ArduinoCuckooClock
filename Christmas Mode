@@ -323,6 +323,7 @@ NOTE_GS5, //57
 NOTE_A5, //58
 NOTE_AS5, //59
 NOTE_B5, //60
+NOTE_Silent,
 NOTE_C6, //61
 NOTE_CS6, //62
 NOTE_D6, //63
@@ -351,25 +352,57 @@ NOTE_C8, //85
 NOTE_CS8, //86
 NOTE_D8, //87
 NOTE_DS8, //88
-NOTE_Silent}; //89
+}; 
 
 int randomtempoSelector = random(0,4);
-int randomnoteSelector = random(0, 89);
+int randomnoteSelector = random(25, 60);
 
 int randomTempo[]=
 {1,2,4,8,16};
 
+int note1 =random(0, sizeof(a) / sizeof(a[i]))
+int note2 = random(0, sizeof(a) / sizeof(a[i]))
+int note1 =random(0, sizeof(a) / sizeof(a[i]))
+int note1 =random(0, sizeof(a) / sizeof(a[i]))
+int note1 =random(0, sizeof(a) / sizeof(a[i]))
 
-int randomMelody[16];
+int randomMelody[16] = ;
 int randomtempoVerse[16];
 
 
 void loop() {  
+  /*
   for (int i = 0; i < 16; i++){
     randomNote[randomnoteSelector];
     randomMelody[i] = randomNote[randomnoteSelector];
     randomTempo[randomtempoSelector];
     randomtempoVerse[i] = randomTempo[randomtempoSelector];
-    
+    int noteDuration = 1000 / randomtempoVerse[i];
+    int pauseBetweenNotes = noteDuration * 1.30;
+    tone(8, randomNote[i], 1000/4);
+    delay(pauseBetweenNotes);}
+    */
+    /*
+    for (int i = 0; i < 16 ; i++){
+    tone(8, randomNote[random(25, 62)], 2000/randomTempo[random(0, 4)]);
+    delay(350);
     }
+    */
+   
+    
+  /*
+    for (int i = 0; i < 30 ; i++){
+    tone(8, wishyoumerrychristmasMelody[random(0,30)], 1000/ wishyoumerrychristmasTempo[i] );
+    delay(350);
+    }
+    */
+    }
+
+  
+  
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    
+    delay(350);}
+    
 }
