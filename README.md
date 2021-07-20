@@ -43,7 +43,7 @@ The cuckoo clock plays the birthday song for 24 hours straight upon the hour, le
 Mode 2: | Holiday Mode
 ------------ | -------------
 
-The clock plays 12 holiday songs every 12 hours, and a tiny advent calendar LED matrix image, led Christmas lights light up
+The clock plays 12 holiday songs every 12 hours, and 12 randomized versions of the same songs for the last 12 hours. A tiny advent calendar LED matrix image, led Christmas lights light up to music tempo. 
 
 Mode 3: | Hannukah Mode
 ------------ | -------------
