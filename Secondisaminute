@@ -1,0 +1,511 @@
+/*
+Arduino Christmas Clock Player 
+Cuckoo Clock Project 2021
+*/
+#define NOTE_B0  31
+#define NOTE_C1  33
+#define NOTE_CS1 35
+#define NOTE_D1  37
+#define NOTE_DS1 39
+#define NOTE_E1  41
+#define NOTE_F1  44
+#define NOTE_FS1 46
+#define NOTE_G1  49
+#define NOTE_GS1 52
+#define NOTE_A1  55
+#define NOTE_AS1 58
+#define NOTE_B1  62
+#define NOTE_C2  65
+#define NOTE_CS2 69
+#define NOTE_D2  73
+#define NOTE_DS2 78
+#define NOTE_E2  82
+#define NOTE_F2  87
+#define NOTE_FS2 93
+#define NOTE_G2  98
+#define NOTE_GS2 104
+#define NOTE_A2  110
+#define NOTE_AS2 117
+#define NOTE_B2  123
+#define NOTE_C3  131
+#define NOTE_CS3 139
+#define NOTE_D3  147
+#define NOTE_DS3 156
+#define NOTE_E3  165
+#define NOTE_F3  175
+#define NOTE_FS3 185
+#define NOTE_G3  196
+#define NOTE_GS3 208
+#define NOTE_A3  220
+#define NOTE_AS3 233
+#define NOTE_B3  247
+#define NOTE_C4  262
+#define NOTE_CS4 277
+#define NOTE_D4  294
+#define NOTE_DS4 311
+#define NOTE_E4  330
+#define NOTE_F4  349
+#define NOTE_FS4 370
+#define NOTE_G4  392
+#define NOTE_GS4 415
+#define NOTE_A4  440
+#define NOTE_AS4 466
+#define NOTE_B4  494
+#define NOTE_C5  523
+#define NOTE_CS5 554
+#define NOTE_D5  587
+#define NOTE_DS5 622
+#define NOTE_E5  659
+#define NOTE_F5  698
+#define NOTE_FS5 740
+#define NOTE_G5  784
+#define NOTE_GS5 831
+#define NOTE_A5  880
+#define NOTE_AS5 932
+#define NOTE_B5  988
+#define NOTE_C6  1047
+#define NOTE_CS6 1109
+#define NOTE_D6  1175
+#define NOTE_DS6 1245
+#define NOTE_E6  1319
+#define NOTE_F6  1397
+#define NOTE_FS6 1480
+#define NOTE_G6  1568
+#define NOTE_GS6 1661
+#define NOTE_A6  1760
+#define NOTE_AS6 1865
+#define NOTE_B6  1976
+#define NOTE_C7  2093
+#define NOTE_CS7 2217
+#define NOTE_D7  2349
+#define NOTE_DS7 2489
+#define NOTE_E7  2637
+#define NOTE_F7  2794
+#define NOTE_FS7 2960
+#define NOTE_G7  3136
+#define NOTE_GS7 3322
+#define NOTE_A7  3520
+#define NOTE_AS7 3729
+#define NOTE_B7  3951
+#define NOTE_C8  4186
+#define NOTE_CS8 4435
+#define NOTE_D8  4699
+#define NOTE_DS8 4978
+#define NOTE_Silent 0
+
+void setup() {
+pinMode (13, OUTPUT);  //board light connected at 13
+pinMode(8,OUTPUT);     //Passive Buzzer connected at 8
+}
+
+
+int jinglebellsMelody[] = {
+  NOTE_E5, NOTE_E5, NOTE_E5,
+  NOTE_E5, NOTE_E5, NOTE_E5,
+  NOTE_E5, NOTE_G5, NOTE_C5, NOTE_D5,
+  NOTE_E5,
+  NOTE_F5, NOTE_F5, NOTE_F5, NOTE_F5,
+  NOTE_F5, NOTE_E5, NOTE_E5, NOTE_E5, NOTE_E5,
+  NOTE_E5, NOTE_D5, NOTE_D5, NOTE_E5,
+  NOTE_D5, NOTE_G5
+};
+
+int jinglebellsTempo[] = {
+  8, 8, 4,
+  8, 8, 4,
+  8, 8, 8, 8,
+  2,
+  8, 8, 8, 8,
+  8, 8, 8, 16, 16,
+  8, 8, 8, 8,
+  4, 4
+};
+
+int wishyoumerrychristmasMelody[] = {
+  NOTE_B3, 
+  NOTE_F4, NOTE_F4, NOTE_G4, NOTE_F4, NOTE_E4,
+  NOTE_D4, NOTE_D4, NOTE_D4,
+  NOTE_G4, NOTE_G4, NOTE_A4, NOTE_G4, NOTE_F4,
+  NOTE_E4, NOTE_E4, NOTE_E4,
+  NOTE_A4, NOTE_A4, NOTE_B4, NOTE_A4, NOTE_G4,
+  NOTE_F4, NOTE_D4, NOTE_B3, NOTE_B3,
+  NOTE_D4, NOTE_G4, NOTE_E4,
+  NOTE_F4
+};
+int wishyoumerrychristmasTempo[] = {
+  4,
+  4, 8, 8, 8, 8,
+  4, 4, 4,
+  4, 8, 8, 8, 8,
+  4, 4, 4,
+  4, 8, 8, 8, 8,
+  4, 4, 8, 8,
+  4, 4, 4,
+  2
+};
+
+int santaMelody[] = {
+  NOTE_G4,
+  NOTE_E4, NOTE_F4, NOTE_G4, NOTE_G4, NOTE_G4,
+  NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, NOTE_C5,
+  NOTE_E4, NOTE_F4, NOTE_G4, NOTE_G4, NOTE_G4,
+  NOTE_A4, NOTE_G4, NOTE_F4, NOTE_F4,
+  NOTE_E4, NOTE_G4, NOTE_C4, NOTE_E4,
+  NOTE_D4, NOTE_F4, NOTE_B3,
+  NOTE_C4
+};
+
+int santaTempo[] = {
+  8,
+  8, 8, 4, 4, 4,
+  8, 8, 4, 4, 4,
+  8, 8, 4, 4, 4,
+  8, 8, 4, 2,
+  4, 4, 4, 4,
+  4, 2, 4,
+  1
+};
+
+int silentnightMelody[] = {
+  NOTE_G4, NOTE_A4, NOTE_G4,
+  NOTE_E4,
+  NOTE_G4, NOTE_A4, NOTE_G4,
+  NOTE_E4,
+  NOTE_D5, NOTE_D5,
+  NOTE_B4,
+  NOTE_C5, NOTE_C5,
+  NOTE_G4,
+
+  NOTE_A4, NOTE_A4,
+  NOTE_C5, NOTE_B4, NOTE_A4,
+  NOTE_G4, NOTE_A4, NOTE_G4,
+  NOTE_E4, 
+  NOTE_A4, NOTE_A4,
+  NOTE_C5, NOTE_B4, NOTE_A4,
+  NOTE_G4,NOTE_A4, NOTE_G4,
+  NOTE_E4,
+  
+  NOTE_D5, NOTE_D5,
+  NOTE_F5, NOTE_D5, NOTE_B4,
+  NOTE_C5,
+  NOTE_E5,
+  NOTE_C5,NOTE_G4, NOTE_E4,
+  NOTE_G4,NOTE_F4, NOTE_D4,
+  NOTE_C4,
+  NOTE_C4
+};
+
+int silentnightTempo[]={
+  4,8,4,
+  2,
+  4,8,4,
+  2,
+  2,4,
+  2,
+  2, 4, 
+  2,
+  2, 4,
+  4, 8, 4,
+  4, 8, 4, 
+  2, 
+  2, 4, 
+  4, 8, 4, 
+  4, 8, 4,
+  2, 
+  2, 4, 
+  4, 8, 4, 
+  2, 2, 
+  4, 4, 4,
+  4, 8, 4, 
+  2,
+  1,
+};
+
+int greensleevesMelody[] = {
+  NOTE_G4,
+  NOTE_AS4, NOTE_C5, NOTE_D5, NOTE_DS5,NOTE_D5,
+  NOTE_C5,NOTE_A4, NOTE_F4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_G4, NOTE_G4, NOTE_FS4, NOTE_G4,
+  NOTE_A4, NOTE_FS4, NOTE_D4, NOTE_G4,
+  
+  NOTE_AS4,NOTE_C5, NOTE_D5, NOTE_DS5, NOTE_D5,
+  NOTE_C5, NOTE_A4, NOTE_F4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_FS4, NOTE_E4, NOTE_FS4, 
+  NOTE_G4,
+  NOTE_F5,NOTE_E5, NOTE_D5,
+
+  NOTE_C5, NOTE_A4, NOTE_F4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_G4, NOTE_G4, NOTE_FS4,NOTE_G4,
+  NOTE_A4, NOTE_FS4, NOTE_D4,
+  NOTE_F5, NOTE_E5, NOTE_D5,
+  NOTE_C5, NOTE_A4, NOTE_F4, NOTE_G4, NOTE_A4,
+
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_FS4, NOTE_E4, NOTE_FS4,
+  NOTE_G4};
+
+int greensleevesTempo[] = {
+8, 4, 8, 8, 16, 8, 
+4, 8, 8, 16, 8,
+4, 8, 8, 16, 8, 
+4, 8, 4, 8, 
+4, 8, 8, 16, 8, 
+4, 8, 8, 16, 8, 
+8, 16, 8, 8, 16, 8,
+2, 
+2, 16, 8, 
+4, 8, 8, 16, 8, 
+4, 8, 8, 16, 8, 
+4, 8, 4, 
+2, 16, 8, 
+4, 8, 8, 16, 8, 
+8, 16, 8, 8, 16, 8, 
+2};
+
+int randomNote[]={
+NOTE_B0, //0
+NOTE_C1, //1
+NOTE_CS1, //2
+NOTE_D1, //3
+NOTE_DS1, //4
+NOTE_E1, //5
+NOTE_F1, //6
+NOTE_FS1, //7
+NOTE_G1, //8
+NOTE_GS1, //9
+NOTE_A1, //10
+NOTE_AS1, //11
+NOTE_B1, //12
+NOTE_C2, //13
+NOTE_CS2, //14
+NOTE_D2, //15
+NOTE_DS2, //16
+NOTE_E2, //17
+NOTE_F2, //18
+NOTE_FS2, //19
+NOTE_G2, //20
+NOTE_GS2, //21
+NOTE_A2, //22
+NOTE_AS2, //23
+NOTE_B2, //24
+NOTE_C3, //25
+NOTE_CS3, //26
+NOTE_D3, //27
+NOTE_DS3, //28
+NOTE_E3, //29
+NOTE_F3, //30
+NOTE_FS3, //31
+NOTE_G3, //32
+NOTE_GS3, //33
+NOTE_A3,  //34
+NOTE_AS3, //35
+NOTE_B3,  //36
+NOTE_C4, //37
+NOTE_CS4, //38
+NOTE_D4,  //39
+NOTE_DS4, //40
+NOTE_E4, //41
+NOTE_F4, //42
+NOTE_FS4, //43
+NOTE_G4, //44
+NOTE_GS4, //45
+NOTE_A4, //46
+NOTE_AS4, //47
+NOTE_B4,//48
+NOTE_C5, //49
+NOTE_CS5, //50
+NOTE_D5, //51
+NOTE_DS5, //52
+NOTE_E5, //53
+NOTE_F5, //54
+NOTE_FS5, //55
+NOTE_G5, //56
+NOTE_GS5, //57
+NOTE_A5, //58
+NOTE_AS5, //59
+NOTE_B5, //60
+NOTE_Silent,
+NOTE_C6, //61
+NOTE_CS6, //62
+NOTE_D6, //63
+NOTE_DS6, //64
+NOTE_E6, //65
+NOTE_F6,//66
+NOTE_FS6, //67
+NOTE_G6, //68
+NOTE_GS6, //69
+NOTE_A6, //70
+NOTE_AS6, //71
+NOTE_B6,  //72
+NOTE_C7,  //73
+NOTE_CS7, //74
+NOTE_D7,  //75
+NOTE_DS7, //76
+NOTE_E7,  //77
+NOTE_F7, //78
+NOTE_FS7, //79
+NOTE_G7, //80
+NOTE_GS7, //81
+NOTE_A7, //82
+NOTE_AS7, //83
+NOTE_B7, //84
+NOTE_C8, //85 
+NOTE_CS8, //86
+NOTE_D8, //87
+NOTE_DS8, //88
+}; 
+
+int randomtempoSelector = random(0,4);
+int randomnoteSelector = random(25, 60);
+
+int randomTempo[]=
+{1,2,4,8,16};
+
+int a[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 23, 14, 15};
+int lengthofArray = sizeof(a) / sizeof(a[0]);
+int note1 = random(0, lengthofArray);
+int note2 = random(0, lengthofArray);
+int note3 = random(0, lengthofArray);
+int note4 = random(0, lengthofArray);
+int note5 = random(0, lengthofArray);
+int note6 = random(0, lengthofArray);
+int note7 = random(0, lengthofArray);
+int note8 = random(0, lengthofArray);
+int note9 = random(0, lengthofArray);
+int note10 = random(0,lengthofArray);
+int note11 = random(0,lengthofArray);
+int note12 = random(0,lengthofArray);
+int note13 = random(0,lengthofArray);
+int note14 = random(0, lengthofArray);
+int note15 = random(0, lengthofArray);
+int note16 = random(0, lengthofArray);
+
+
+int randomMelody[16];
+int randomtempoVerse[16];
+
+int hour = 0;
+int minute = 0;
+
+void loop() {  
+
+  
+    /* . NORMAL MODE:
+    for (int i = 0; i < 8 ; i++){
+    tone(8, randomNote[random(25, 62)], 2000/randomTempo[random(0, 4)]);
+    delay(350);
+    }
+    */
+   
+    
+  /*
+    for (int i = 0; i < 30 ; i++){
+    tone(8, wishyoumerrychristmasMelody[random(0,30)], 1000/ wishyoumerrychristmasTempo[i] );
+    delay(350);
+    }
+    */
+    
+    
+    
+    
+  if (hour == 1 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    
+    }
+
+  else if (hour == 2 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}}
+    
+  else if (hour == 3 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    
+    }
+    
+  else if (hour == 4 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    
+    }
+
+        
+  else if (hour == 5 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    
+    }
+  
+    
+  else if (hour == 6 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    delay(16000);
+    }
+
+     
+  else if (hour == 7 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    delay(16000);
+    }
+
+     
+  else if (hour == 8 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    
+    }
+
+     
+  else if (hour == 9 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    
+    }
+
+  else if (hour == 10 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    delay(16000);
+    }
+
+     
+  else if (hour == 11 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    
+    }
+
+    
+  else if (hour == 12 && minute == 0){
+    for (int i = 0; i < 16 ; i++){
+    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    delay(350);}
+    
+    }
+
+  else if (hour == 13 && minute == 0){
+      hour = 0;}
+  else{}    
+  
+    
+if ( minute == 60){
+  hour ++;
+  minute = 0;}
+else{
+  minute ++;
+  delay(1000);}       
+    
+}
