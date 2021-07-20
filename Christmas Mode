@@ -1,5 +1,5 @@
 /*
-Arduino random Note Player 
+Arduino Christmas Clock Player 
 Cuckoo Clock Project 2021
 */
 #define NOTE_B0  31
@@ -91,13 +91,11 @@ Cuckoo Clock Project 2021
 #define NOTE_CS8 4435
 #define NOTE_D8  4699
 #define NOTE_DS8 4978
+#define NOTE_Silent 0
+
 void setup() {
 pinMode (13, OUTPUT);  //board light connected at 13
 pinMode(8,OUTPUT);     //Passive Buzzer connected at 8
-  length=sizeof(scale)/sizeof(scale[0]);   
-}
-
-void loop() {
 }
 
 
@@ -168,99 +166,210 @@ int santaTempo[] = {
   1
 };
 
-int randomMelody[]={
-NOTE_B0,
-NOTE_C1,
-NOTE_CS1,
-NOTE_D1,
-NOTE_DS1,
-NOTE_E1,
-NOTE_F1,
-NOTE_FS1,
-NOTE_G1,
-NOTE_GS1,
-NOTE_A1,
-NOTE_AS1,
- NOTE_B1,
- NOTE_C2,
- NOTE_CS2,
- NOTE_D2,
- NOTE_DS2,
- NOTE_E2,
- NOTE_F2,
- NOTE_FS2,
- NOTE_G2,
- NOTE_GS2,
- NOTE_A2,
- NOTE_AS2,
- NOTE_B2,
- NOTE_C3,
- NOTE_CS3,
- NOTE_D3,
- NOTE_DS3,
- NOTE_E3,
- NOTE_F3,
- NOTE_FS3,
- NOTE_G3, 
- NOTE_GS3, 
- NOTE_A3,  
- NOTE_AS3, 
- NOTE_B3,  
- NOTE_C4, 
- NOTE_CS4, 
- NOTE_D4,  
- NOTE_DS4, 
- NOTE_E4,
- NOTE_F4,
- NOTE_FS4,
- NOTE_G4,
- NOTE_GS4,
- NOTE_A4,
- NOTE_AS4,
-NOTE_B4,
-NOTE_C5,
-NOTE_CS5,
-NOTE_D5,
-NOTE_DS5,
-NOTE_E5,
-NOTE_F5,
-NOTE_FS5,
-NOTE_G5,
-NOTE_GS5,
-NOTE_A5,
-NOTE_AS5,
-NOTE_B5,
-NOTE_C6,
-NOTE_CS6,
-NOTE_D6,
-NOTE_DS6,
-NOTE_E6,
-NOTE_F6,
-NOTE_FS6,
-NOTE_G6,
-NOTE_GS6,
-NOTE_A6,
-NOTE_AS6,
-NOTE_B6,  
-NOTE_C7,  
-NOTE_CS7, 
-NOTE_D7,  
-NOTE_DS7, 
-NOTE_E7,  
-NOTE_F7,
-NOTE_FS7,
-NOTE_G7,
-NOTE_GS7,
-NOTE_A7,
-NOTE_AS7,
-NOTE_B7,
-NOTE_C8,  
-NOTE_CS8,
-NOTE_D8, 
-NOTE_DS8}
+int silentnightMelody[] = {
+  NOTE_G4, NOTE_A4, NOTE_G4,
+  NOTE_E4,
+  NOTE_G4, NOTE_A4, NOTE_G4,
+  NOTE_E4,
+  NOTE_D5, NOTE_D5,
+  NOTE_B4,
+  NOTE_C5, NOTE_C5,
+  NOTE_G4,
 
-int = randomTempo
-{1,2,4,8,16}
+  NOTE_A4, NOTE_A4,
+  NOTE_C5, NOTE_B4, NOTE_A4,
+  NOTE_G4, NOTE_A4, NOTE_G4,
+  NOTE_E4, 
+  NOTE_A4, NOTE_A4,
+  NOTE_C5, NOTE_B4, NOTE_A4,
+  NOTE_G4,NOTE_A4, NOTE_G4,
+  NOTE_E4,
+  
+  NOTE_D5, NOTE_D5,
+  NOTE_F5, NOTE_D5, NOTE_B4,
+  NOTE_C5,
+  NOTE_E5,
+  NOTE_C5,NOTE_G4, NOTE_E4,
+  NOTE_G4,NOTE_F4, NOTE_D4,
+  NOTE_C4,
+  NOTE_C4
+};
+
+int silentnightTempo[]={
+  4,8,4,
+  2,
+  4,8,4,
+  2,
+  2,4,
+  2,
+  2, 4, 
+  2,
+  2, 4,
+  4, 8, 4,
+  4, 8, 4, 
+  2, 
+  2, 4, 
+  4, 8, 4, 
+  4, 8, 4,
+  2, 
+  2, 4, 
+  4, 8, 4, 
+  2, 2, 
+  4, 4, 4,
+  4, 8, 4, 
+  2,
+  1,
+};
+
+int greensleevesMelody[] = {
+  NOTE_G4,
+  NOTE_AS4, NOTE_C5, NOTE_D5, NOTE_DS5,NOTE_D5,
+  NOTE_C5,NOTE_A4, NOTE_F4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_G4, NOTE_G4, NOTE_FS4, NOTE_G4,
+  NOTE_A4, NOTE_FS4, NOTE_D4, NOTE_G4,
+  
+  NOTE_AS4,NOTE_C5, NOTE_D5, NOTE_DS5, NOTE_D5,
+  NOTE_C5, NOTE_A4, NOTE_F4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_FS4, NOTE_E4, NOTE_FS4, 
+  NOTE_G4,
+  NOTE_F5,NOTE_E5, NOTE_D5,
+
+  NOTE_C5, NOTE_A4, NOTE_F4, NOTE_G4, NOTE_A4,
+  NOTE_AS4, NOTE_G4, NOTE_G4, NOTE_FS4,NOTE_G4,
+  NOTE_A4, NOTE_FS4, NOTE_D4,
+  NOTE_F5, NOTE_E5, NOTE_D5,
+  NOTE_C5, NOTE_A4, NOTE_F4, NOTE_G4, NOTE_A4,
+
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_FS4, NOTE_E4, NOTE_FS4,
+  NOTE_G4};
+
+int greensleevesTempo[] = {
+8, 4, 8, 8, 16, 8, 
+4, 8, 8, 16, 8,
+4, 8, 8, 16, 8, 
+4, 8, 4, 8, 
+4, 8, 8, 16, 8, 
+4, 8, 8, 16, 8, 
+8, 16, 8, 8, 16, 8,
+2, 
+2, 16, 8, 
+4, 8, 8, 16, 8, 
+4, 8, 8, 16, 8, 
+4, 8, 4, 
+2, 16, 8, 
+4, 8, 8, 16, 8, 
+8, 16, 8, 8, 16, 8, 
+2};
+
+int randomNote[]={
+NOTE_B0, //0
+NOTE_C1, //1
+NOTE_CS1, //2
+NOTE_D1, //3
+NOTE_DS1, //4
+NOTE_E1, //5
+NOTE_F1, //6
+NOTE_FS1, //7
+NOTE_G1, //8
+NOTE_GS1, //9
+NOTE_A1, //10
+NOTE_AS1, //11
+NOTE_B1, //12
+NOTE_C2, //13
+NOTE_CS2, //14
+NOTE_D2, //15
+NOTE_DS2, //16
+NOTE_E2, //17
+NOTE_F2, //18
+NOTE_FS2, //19
+NOTE_G2, //20
+NOTE_GS2, //21
+NOTE_A2, //22
+NOTE_AS2, //23
+NOTE_B2, //24
+NOTE_C3, //25
+NOTE_CS3, //26
+NOTE_D3, //27
+NOTE_DS3, //28
+NOTE_E3, //29
+NOTE_F3, //30
+NOTE_FS3, //31
+NOTE_G3, //32
+NOTE_GS3, //33
+NOTE_A3,  //34
+NOTE_AS3, //35
+NOTE_B3,  //36
+NOTE_C4, //37
+NOTE_CS4, //38
+NOTE_D4,  //39
+NOTE_DS4, //40
+NOTE_E4, //41
+NOTE_F4, //42
+NOTE_FS4, //43
+NOTE_G4, //44
+NOTE_GS4, //45
+NOTE_A4, //46
+NOTE_AS4, //47
+NOTE_B4,//48
+NOTE_C5, //49
+NOTE_CS5, //50
+NOTE_D5, //51
+NOTE_DS5, //52
+NOTE_E5, //53
+NOTE_F5, //54
+NOTE_FS5, //55
+NOTE_G5, //56
+NOTE_GS5, //57
+NOTE_A5, //58
+NOTE_AS5, //59
+NOTE_B5, //60
+NOTE_C6, //61
+NOTE_CS6, //62
+NOTE_D6, //63
+NOTE_DS6, //64
+NOTE_E6, //65
+NOTE_F6,//66
+NOTE_FS6, //67
+NOTE_G6, //68
+NOTE_GS6, //69
+NOTE_A6, //70
+NOTE_AS6, //71
+NOTE_B6,  //72
+NOTE_C7,  //73
+NOTE_CS7, //74
+NOTE_D7,  //75
+NOTE_DS7, //76
+NOTE_E7,  //77
+NOTE_F7, //78
+NOTE_FS7, //79
+NOTE_G7, //80
+NOTE_GS7, //81
+NOTE_A7, //82
+NOTE_AS7, //83
+NOTE_B7, //84
+NOTE_C8, //85 
+NOTE_CS8, //86
+NOTE_D8, //87
+NOTE_DS8, //88
+NOTE_Silent}; //89
+
+int randomtempoSelector = random(0,4);
+int randomnoteSelector = random(0, 89);
+
+int randomTempo[]=
+{1,2,4,8,16};
+
+
+int randomMelody[16];
+int randomtempoVerse[16];
+
+
+void loop() {  
+  for (int i = 0; i < 16; i++){
+    randomNote[randomnoteSelector];
+    randomMelody[i] = randomNote[randomnoteSelector];
+    randomTempo[randomtempoSelector];
+    randomtempoVerse[i] = randomTempo[randomtempoSelector];
+    
+    }
 }
-
-randomtempoSelector = random(0,5)
