@@ -93,11 +93,28 @@ Cuckoo Clock Project 2021
 #define NOTE_DS8 4978
 #define NOTE_Silent 0
 
+
+
+int red_light_pin= 11;
+int green_light_pin = 10;
+int blue_light_pin = 9;
+
 void setup() {
+//Serial.begin(115200); //TRANSMITTER TO PC
 pinMode (13, OUTPUT);  //board light connected at 13
-pinMode(8,OUTPUT);     //Passive Buzzer connected at 8
+pinMode(2,OUTPUT);     //Passive Buzzer connected at 2
+pinMode(red_light_pin, OUTPUT);
+pinMode(green_light_pin, OUTPUT);
+pinMode(blue_light_pin, OUTPUT);
+
 }
 
+void RGB_color(int red_light_value, int green_light_value, int blue_light_value)
+ {
+  analogWrite(red_light_pin, red_light_value);
+  analogWrite(green_light_pin, green_light_value);
+  analogWrite(blue_light_pin, blue_light_value);
+}
 
 int jinglebellsMelody[] = {
   NOTE_E5, NOTE_E5, NOTE_E5,
@@ -359,7 +376,8 @@ int randomnoteSelector = random(25, 60);
 
 int randomTempo[]=
 {1,2,4,8,16};
-
+int lengthofArray;
+/* HOW RANDOM MELODY WORKS ON NORMAL MODE
 int a[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 23, 14, 15};
 int lengthofArray = sizeof(a) / sizeof(a[0]);
 int note1 = random(0, lengthofArray);
@@ -379,6 +397,12 @@ int note14 = random(0, lengthofArray);
 int note15 = random(0, lengthofArray);
 int note16 = random(0, lengthofArray);
 
+In the case of randomNote[] , only 25 to 62 sound good
+
+int randomMelody[16] = {note1, note2, note3,
+note4, note5, note6, note7, note8, note9, note10,
+note11, note12, note13, note14, note15, note16};
+*/
 
 int randomMelody[16];
 int randomtempoVerse[16];
@@ -389,46 +413,49 @@ int minute = 0;
 void loop() {  
 
   
-    /* . NORMAL MODE:
+    /* NORMAL MODE: RANDOM NOTE AND RANDOM TEMPO
     for (int i = 0; i < 8 ; i++){
     tone(8, randomNote[random(25, 62)], 2000/randomTempo[random(0, 4)]);
     delay(350);
     }
     */
-   
     
-  /*
-    for (int i = 0; i < 30 ; i++){
-    tone(8, wishyoumerrychristmasMelody[random(0,30)], 1000/ wishyoumerrychristmasTempo[i] );
-    delay(350);
-    }
-    */
-    
-    
-    
-    
+  /*--------1 PM Jingle Bells Random - Transmit to device ------------------*/ 
   if (hour == 1 && minute == 0){
+    lengthofArray = sizeof(jinglebellsMelody) / sizeof(jinglebellsMelody[0]);
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
-    delay(350);}
-    
+    randomMelody[i] = random(0, lengthofArray);
+    tone(2, jinglebellsMelody[randomMelody[i]], 2000/ jinglebellsTempo[i] );
+    RGB_color(0, 255, 0); // Green
+    delay(350);
+    RGB_color(255, 0, 0);}
+    //TRANSMIT THE MELODY ARRAY TO DEVICE FOR STORAGE
+    //Serial.write(randomMelody[i]);
+    //Serial.write(jinglebellsTempo[i]);
     }
 
+  /*--------2 PM Jingle Bells Regular ------------------------------------*/ 
   else if (hour == 2 && minute == 0){
-    for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    for (int i = 0; i < 26 ; i++){
+    tone(2, jinglebellsMelody[i], 2000/ jinglebellsTempo[i] );
     delay(350);}}
-    
+
+
+  /*--------3 PM We wish you a Merry Christmas Random - Transmit ---------*/ 
   else if (hour == 3 && minute == 0){
+  lengthofArray = sizeof(wishyoumerrychristmasMelody) / sizeof(wishyoumerrychristmasMelody[0]);
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    randomMelody[i] = random(0, lengthofArray);
+    tone(2, wishyoumerrychristmasMelody[randomMelody[i]], 1000/ wishyoumerrychristmasTempo[i] );
     delay(350);}
-    
+    //TRANSMIT THE MELODY ARRAY TO DEVICE FOR STORAGE
+    //Serial.write(randomMelody[i]);
+    //Serial.write(jinglebellsTempo[i]);
     }
-    
+  /*--------4 PM We wish you a Merry Christmas Regular---------------------*/   
   else if (hour == 4 && minute == 0){
-    for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    for (int i = 0; i < 30 ; i++){
+    tone(2, wishyoumerrychristmasMelody[i], 1000/ wishyoumerrychristmasTempo[i] );
     delay(350);}
     
     }
@@ -436,7 +463,7 @@ void loop() {
         
   else if (hour == 5 && minute == 0){
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    tone(2, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
     delay(350);}
     
     }
@@ -444,7 +471,7 @@ void loop() {
     
   else if (hour == 6 && minute == 0){
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    tone(2, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
     delay(350);}
     delay(16000);
     }
@@ -452,7 +479,7 @@ void loop() {
      
   else if (hour == 7 && minute == 0){
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    tone(2, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
     delay(350);}
     delay(16000);
     }
@@ -460,7 +487,7 @@ void loop() {
      
   else if (hour == 8 && minute == 0){
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    tone(2, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
     delay(350);}
     
     }
@@ -468,14 +495,14 @@ void loop() {
      
   else if (hour == 9 && minute == 0){
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    tone(2, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
     delay(350);}
     
     }
 
   else if (hour == 10 && minute == 0){
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    tone(2, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
     delay(350);}
     delay(16000);
     }
@@ -483,7 +510,7 @@ void loop() {
      
   else if (hour == 11 && minute == 0){
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    tone(2, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
     delay(350);}
     
     }
@@ -491,11 +518,11 @@ void loop() {
     
   else if (hour == 12 && minute == 0){
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
+    tone(2, silentnightMelody[i], 2000/ silentnightTempo[i] );
     delay(350);}
     
     }
-
+ 
   else if (hour == 13 && minute == 0){
       hour = 0;}
   else{}    
