@@ -93,11 +93,28 @@ Cuckoo Clock Project 2021
 #define NOTE_DS8 4978
 #define NOTE_Silent 0
 
+
+
+int red_light_pin= 11;
+int green_light_pin = 10;
+int blue_light_pin = 9;
+
 void setup() {
+//Serial.begin(115200); //TRANSMITTER TO PC
 pinMode (13, OUTPUT);  //board light connected at 13
-pinMode(8,OUTPUT);     //Passive Buzzer connected at 8
+pinMode(2,OUTPUT);     //Passive Buzzer connected at 2
+pinMode(red_light_pin, OUTPUT);
+pinMode(green_light_pin, OUTPUT);
+pinMode(blue_light_pin, OUTPUT);
+
 }
 
+void RGB_color(int red_light_value, int green_light_value, int blue_light_value)
+ {
+  analogWrite(red_light_pin, red_light_value);
+  analogWrite(green_light_pin, green_light_value);
+  analogWrite(blue_light_pin, blue_light_value);
+}
 
 int jinglebellsMelody[] = {
   NOTE_E5, NOTE_E5, NOTE_E5,
@@ -261,6 +278,81 @@ int greensleevesTempo[] = {
 8, 16, 8, 8, 16, 8, 
 2};
 
+
+
+int harrypotterxmasMelody[]={
+NOTE_Silent, NOTE_D4,
+  NOTE_G4, NOTE_AS4,NOTE_A4,
+  NOTE_G4,NOTE_D5,
+  NOTE_C5, 
+  NOTE_A4,
+  NOTE_G4,  NOTE_AS4, NOTE_A4,
+  NOTE_F4,  NOTE_GS4, 
+  NOTE_D4, 
+  NOTE_D4, 
+
+  NOTE_G4,  NOTE_AS4,  NOTE_A4,  
+  NOTE_G4,  NOTE_D5, 
+  NOTE_F5,  NOTE_E5, 
+  NOTE_DS5,  NOTE_B4, 
+  NOTE_DS5,  NOTE_D5,  NOTE_CS5, 
+  NOTE_CS4,  NOTE_B4, 
+  NOTE_G4, 
+  NOTE_AS4, 
+     
+  NOTE_D5,  NOTE_AS4, 
+  NOTE_D5,  NOTE_AS4,
+  NOTE_DS5,  NOTE_D5, 
+  NOTE_CS5, NOTE_A4,
+  NOTE_AS4,  NOTE_D5, NOTE_CS5, 
+  NOTE_CS4,  NOTE_D4, 
+  NOTE_D5,
+  NOTE_Silent, NOTE_AS4, 
+
+  NOTE_D5, NOTE_AS4, 
+  NOTE_D5, NOTE_AS4,
+  NOTE_F5,  NOTE_E5,
+  NOTE_DS5, NOTE_B4, 
+  NOTE_DS5,NOTE_D5, NOTE_CS5, 
+  NOTE_CS4, NOTE_AS4,
+  NOTE_G4,
+  
+};
+
+int harrypotterxmasTempo[]={
+  2, 4, 
+  4, 8, 4, 
+  2, 4, 
+  2, 
+  2, 
+  4, 8, 4,
+  2,4,
+  1,
+  4,
+  4,8,4,
+  2, 4,
+  2, 4, 
+  2, 4, 
+  4, 8, 4, 
+  2, 4, 
+  1, 
+  4, 
+  2, 4, 
+  2, 4, 
+  2, 4, 
+  2, 4, 
+  4, 8, 4, 
+  2, 4, 
+  1, 4, 4, 
+  2, 4, 
+  2, 4,
+  2, 4, 
+  4, 8, 4,
+  2, 4, 
+  1};
+
+
+
 int randomNote[]={
 NOTE_B0, //0
 NOTE_C1, //1
@@ -359,50 +451,216 @@ int randomnoteSelector = random(25, 60);
 
 int randomTempo[]=
 {1,2,4,8,16};
+int lengthofArray;
 
-int note1 =random(0, sizeof(a) / sizeof(a[i]))
-int note2 = random(0, sizeof(a) / sizeof(a[i]))
-int note1 =random(0, sizeof(a) / sizeof(a[i]))
-int note1 =random(0, sizeof(a) / sizeof(a[i]))
-int note1 =random(0, sizeof(a) / sizeof(a[i]))
-
-int randomMelody[16] = ;
+int randomMelody[16];
 int randomtempoVerse[16];
 
+int hour = 0;
+int minute = 0;
 
 void loop() {  
-  /*
-  for (int i = 0; i < 16; i++){
-    randomNote[randomnoteSelector];
-    randomMelody[i] = randomNote[randomnoteSelector];
-    randomTempo[randomtempoSelector];
-    randomtempoVerse[i] = randomTempo[randomtempoSelector];
-    int noteDuration = 1000 / randomtempoVerse[i];
-    int pauseBetweenNotes = noteDuration * 1.30;
-    tone(8, randomNote[i], 1000/4);
-    delay(pauseBetweenNotes);}
-    */
-    /*
-    for (int i = 0; i < 16 ; i++){
+
+  
+    /* NORMAL MODE: RANDOM NOTE AND RANDOM TEMPO
+    for (int i = 0; i < 8 ; i++){
     tone(8, randomNote[random(25, 62)], 2000/randomTempo[random(0, 4)]);
     delay(350);
     }
     */
-   
     
-  /*
-    for (int i = 0; i < 30 ; i++){
-    tone(8, wishyoumerrychristmasMelody[random(0,30)], 1000/ wishyoumerrychristmasTempo[i] );
-    delay(350);
-    }
-    */
+  /*--------1 PM Jingle Bells Random - Transmit to device ------------------*/ 
+  if (hour == 1 && minute == 0){
+    lengthofArray = sizeof(jinglebellsMelody) / sizeof(jinglebellsMelody[0]);
+    for (int i = 0; i < 16 ; i++){
+    randomMelody[i] = random(0, lengthofArray);
+    tone(2, jinglebellsMelody[randomMelody[i]], 2000/ jinglebellsTempo[i] );
+    if (i == 0){RGB_color(0, 255, 0);}//green
+    else if (i == 2) {RGB_color(255,0,0);} //red
+    else if (i == 2) {RGB_color(0, 255, 0);} //green
+    else if (i == 3) {RGB_color(255, 0, 0);} //red
+    else if ( i == 4) {RGB_color(255, 255, 255);} //white
+    else if (i == 5) {RGB_color(0, 255, 0);} //green
+    else if (i == 6) {RGB_color(255, 0, 0);} //red
+    else if ( i == 7) {RGB_color(255, 255, 255);} //white
+    else if (i == 8) {RGB_color(0, 255, 0);}//green 
+    else if (i == 9) {RGB_color(255, 0, 0);}//red
+    else if ( i == 10) {RGB_color(255, 255, 255);}//white
+    else if (i == 11) {RGB_color(0, 255, 0);} //green
+    else if ( i == 12) {RGB_color(255, 0, 0);}//red
+    else if (i == 13) {RGB_color(0, 255, 0);}//green
+    else if ( i == 14) {RGB_color(255, 0, 0);}//red
+    else if (i == 15) {RGB_color(0, 0, 0);} 
+    delay(350);}
+    //TRANSMIT THE MELODY ARRAY TO DEVICE FOR STORAGE
+    //Serial.write(jinglebellsMelody[randomMelody[i]]);
+    //Serial.write(jinglebellsTempo[i]);
     }
 
-  
-  
+  /*--------2 PM Jingle Bells Regular ------------------------------------*/ 
+  else if (hour == 2 && minute == 0){
+    for (int i = 0; i < 26 ; i++){
+    tone(2, jinglebellsMelody[i], 2000/ jinglebellsTempo[i] );
+    if (i%2 == 0){RGB_color(0, 255, 0);}//green even
+    else if (i%2 != 0 && i !=25) {RGB_color(255, 0, 0);} //odd red
+    else if (i == 25) {RGB_color(0, 0, 0);} //switch to no power
+    delay(350);}}
+
+
+  /*--------3 PM We wish you a Merry Christmas Random - Transmit ---------*/ 
+  else if (hour == 3 && minute == 0){
+  lengthofArray = sizeof(wishyoumerrychristmasMelody) / sizeof(wishyoumerrychristmasMelody[0]);
     for (int i = 0; i < 16 ; i++){
-    tone(8, silentnightMelody[random(0,30)], 2000/ silentnightTempo[i] );
-    
+    randomMelody[i] = random(0, lengthofArray);
+    tone(2, wishyoumerrychristmasMelody[randomMelody[i]], 2000/ wishyoumerrychristmasTempo[i] );
+    if (i == 0){RGB_color(0, 255, 0);}//green
+    else if (i == 2) {RGB_color(255,0,0);} //red
+    else if (i == 2) {RGB_color(0, 0, 255);} //blue
+    else if (i == 3) {RGB_color(150, 5, 0);} //yellow
+    else if ( i == 4) {RGB_color(255, 255, 255);} //white
+    else if (i == 5) {RGB_color(255, 0, 10);} //pink
+    else if (i == 6) {RGB_color(0, 255, 0);} //green
+    else if ( i == 7) {RGB_color(255, 0, 0);} //red
+    else if (i == 8) {RGB_color(0, 0, 255);}//blue
+    else if (i == 9) {RGB_color(150, 5, 0);}//yellow
+    else if ( i == 10) {RGB_color(255, 255, 255);}//white
+    else if (i == 11) {RGB_color(155, 0, 10);} //pink
+    else if ( i == 12) {RGB_color(0, 255, 0);}//green
+    else if (i == 13) {RGB_color(255, 0, 0);}//red
+    else if ( i == 14) {RGB_color(0, 0, 255);}//blue
+    else if (i == 15) {RGB_color(0, 0, 0);} 
     delay(350);}
+    //TRANSMIT THE MELODY ARRAY TO DEVICE FOR STORAGE
+    //Serial.write(wishyoumerrychristmasMelody[randomMelody[i]]);
+    //Serial.write(wishyoumerrychristmasTempo[i]);
+    }
+  /*--------4 PM We wish you a Merry Christmas Regular---------------------*/   
+  else if (hour == 4 && minute == 0){
+    for (int i = 0; i < 30 ; i++){
+    tone(2, wishyoumerrychristmasMelody[i], 1000/ wishyoumerrychristmasTempo[i] );
+    if (i%2 == 0){RGB_color(0, 255, 0);}//green even
+    else if (i%2 != 0 && i !=29) {RGB_color(255, 0, 0);} //odd red
+    else if (i == 29) {RGB_color(0, 0, 0);} //switch to no power
+    delay(350);}
+    
+    }
+
+  /*--------5 PM Silent Night Random - Transmit ----------------------------*/       
+  else if (hour == 5 && minute == 0){
+    lengthofArray = sizeof(silentnightMelody) / sizeof(silentnightMelody[0]);
+    for (int i = 0; i < 16 ; i++){
+    randomMelody[i] = random(0, lengthofArray);
+    tone(2, silentnightMelody[randomMelody[i]], 2500/ silentnightTempo[i] );
+    if (i%2 == 0){RGB_color(255, 255, 255);}//white even
+    else if (i%2 != 0 && i != 15) {RGB_color(255, 0, 0);} //odd red
+    else if (i == 15) {RGB_color(0, 0, 0);} //switch to no power
+    delay(350);}
+        //TRANSMIT THE MELODY ARRAY TO DEVICE FOR STORAGE
+    //Serial.write(silentnightMelody[randomMelody[i]]);
+    //Serial.write(silentnightTempo[i]);
+    }
+  
+  /*--------6 PM Silent Night Regular---------- ----------------------------*/   
+  else if (hour == 6 && minute == 0){
+    for (int i = 0; i < 47 ; i++){
+    tone(2, silentnightMelody[i], 4000/ silentnightTempo[i] );
+    if (i%2 == 0 && i !=46){RGB_color(0, 255, 0);}//green even
+    else if (i%2 != 0) {RGB_color(255, 0, 0);} //odd red
+    else if (i == 46) {RGB_color(0, 0, 0);} //switch to no power
+    delay(350);}
+    
+    }
+
+     
+   /*--------7 PM Santa Melody Random - Transmit ----------------------------*/       
+  else if (hour == 7 && minute == 0){
+    lengthofArray = sizeof(santaMelody) / sizeof(santaMelody[0]);
+    for (int i = 0; i < 16 ; i++){
+    randomMelody[i] = random(0, lengthofArray);
+    tone(2, santaMelody[randomMelody[i]], 2000/ santaTempo[i] );
+    if (i%2 == 0){RGB_color(255, 255, 255);}//white even
+    else if (i%2 != 0 && i != 15) {RGB_color(0, 255, 255);} //odd cyan
+    else if (i == 15) {RGB_color(0, 0, 0);} //switch to no power
+    delay(350);}
+        //TRANSMIT THE MELODY ARRAY TO DEVICE FOR STORAGE
+    //Serial.write(santaMelody[randomMelody[i]]);
+    //Serial.write(santaTempo[i]);
+    }
+
+     /*--------8 PM Santa Melody Normal -------------------------------------*/     
+  else if (hour == 8 && minute == 0){
+    for (int i = 0; i < 28 ; i++){
+    tone(2, santaMelody[i], 2000/ santaTempo[i] );
+    if (i%2 == 0){RGB_color(0, 255, 0);}//green even
+    else if (i%2 != 0 && i !=27) {RGB_color(255, 0, 0);} //odd red
+    else if (i == 27) {RGB_color(0, 0, 0);} //switch to no power
+    delay(350);}
+    }
+
+     
+  /*--------9 PM greensleeves Random - Transmit ----------------------------*/       
+  else if (hour == 9 && minute == 0){
+    lengthofArray = sizeof(greensleevesMelody) / sizeof(greensleevesMelody[0]);
+    for (int i = 0; i < 16 ; i++){
+    randomMelody[i] = random(0, lengthofArray);
+    tone(2, greensleevesMelody[randomMelody[i]], 2000/ greensleevesTempo[i] );
+    if (i%2 == 0){RGB_color(255, 255, 255);}//white even
+    else if (i%2 != 0 && i != 15) {RGB_color(0, 0, 255);} //odd blue
+    else if (i == 15) {RGB_color(0, 0, 0);} //switch to no power
+    delay(350);}
+        //TRANSMIT THE MELODY ARRAY TO DEVICE FOR STORAGE
+    //Serial.write(greensleevesMelody[randomMelody[i]]);
+    //Serial.write(greensleevesTempo[i]);
+    }
+
+    
+  
+     /*--------10 PM greensleeves Melody Normal -------------------------------------*/     
+  else if (hour == 10 && minute == 0){
+    for (int i = 0; i < 68 ; i++){
+    tone(2, greensleevesMelody[i], 2000/ greensleevesTempo[i] );
+    if (i%2 == 0){RGB_color(0, 255, 0);}//green even
+    else if (i%2 != 0 && i !=67) {RGB_color(255, 0, 0);} //odd red
+    else if (i == 67) {RGB_color(0, 0, 0);} //switch to no power
+    delay(350);}
+    }
+
+     
+ /*--------11 PM Harry Potter Random - Transmit ----------------------------*/       
+  else if (hour == 11 && minute == 0){
+    lengthofArray = sizeof(harrypotterxmasMelody) / sizeof(harrypotterxmasMelody[0]);
+    for (int i = 0; i < 16 ; i++){
+    randomMelody[i] = random(0, lengthofArray);
+    tone(2, harrypotterxmasMelody[randomMelody[i]], 4000/ harrypotterxmasTempo[i] );
+    if (i%2 == 0){RGB_color(0, 128, 255);}//white even
+    else if (i%2 != 0 && i != 15) {RGB_color(128, 0, 255);} //odd violet
+    else if (i == 15) {RGB_color(0, 0, 0);} //switch to no power
+    delay(350);}
+        //TRANSMIT THE MELODY ARRAY TO DEVICE FOR STORAGE
+    //Serial.write(harrypotterxmasMelody[randomMelody[i]]);
+    //Serial.write(harrypotterxmasTempo[i]);
+    }
+    
+   /*--------12 PM/AM HarryPotter Xmas Melody Normal -------------------------------------*/     
+  else if (hour == 12 && minute == 0){
+    for (int i = 0; i < 60 ; i++){
+    tone(2, harrypotterxmasMelody[i], 4000/ harrypotterxmasTempo[i] );
+    if (i%2 == 0){RGB_color(0, 255, 0);}//green even
+    else if (i%2 != 0 && i !=59) {RGB_color(255, 0, 0);} //odd red
+    else if (i == 59) {RGB_color(0, 0, 0);} //switch to no power
+    delay(350);}
+    }
+ 
+  else if (hour == 13 && minute == 0){
+      hour = 0;}
+  else{}    
+  
+    
+if ( minute == 60){
+  hour ++;
+  minute = 0;}
+else{
+  minute ++;
+  delay(100);}       
     
 }
